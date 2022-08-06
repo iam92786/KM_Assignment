@@ -1,0 +1,47 @@
+From c0bafef33d06eba58ebb78e2c514c4070c9b8866 Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Thu, 28 Jul 2022 15:45:20 +0530
+Subject: [PATCH] Enable I2C1 Mux
+
+---
+ board/ti/am335x/mux.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/board/ti/am335x/mux.c b/board/ti/am335x/mux.c
+index 1fa0bc8e..46a0266b 100644
+--- a/board/ti/am335x/mux.c
++++ b/board/ti/am335x/mux.c
+@@ -36,6 +36,13 @@ static struct module_pin_mux lcd_pin_mux[] = {
+ 
+         {-1},
+ };
++static struct module_pin_mux i2c1_pin_mux[] = {
++       {OFFSET(spi0_d1), (MODE(2) | RXACTIVE |
++                       PULLUDEN | SLEWCTRL)}, /* I2C_DATA */
++       {OFFSET(spi0_cs0), (MODE(2) | RXACTIVE |
++                       PULLUDEN | SLEWCTRL)}, /* I2C_SCLK */
++      {-1},
++};
+ 
+ static struct module_pin_mux uart0_pin_mux[] = {
+ 	{OFFSET(uart0_rxd), (MODE(0) | PULLUP_EN | RXACTIVE)},	/* UART0_RXD */
+@@ -101,6 +108,7 @@ void km_bbb_mux(void)
+ 	 configure_module_pin_mux(mmc1_pin_mux);
+ 	 configure_module_pin_mux(lcd_pin_mux);
+          configure_module_pin_mux(mii1_pin_mux);
++	 configure_module_pin_mux(i2c1_pin_mux);
+ }
+ 
+ void enable_board_pin_mux(void)
+@@ -313,7 +321,7 @@ void enable_i2c0_pin_mux(void)
+ 
+ void enable_i2c1_pin_mux(void)
+ {
+-        //configure_module_pin_mux(i2c1_pin_mux);
++        configure_module_pin_mux(i2c1_pin_mux);
+ }
+ void enable_i2c2_pin_mux(void)
+ {
+-- 
+2.25.1
+

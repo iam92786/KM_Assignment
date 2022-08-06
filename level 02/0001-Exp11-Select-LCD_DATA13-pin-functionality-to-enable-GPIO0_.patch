@@ -1,0 +1,29 @@
+From 954e7e849d78448da0929ef08feaad87950e70ad Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Wed, 20 Jul 2022 16:02:54 +0530
+Subject: [PATCH] Select LCD_DATA13 pin functionality to enable GPIO0_9 to
+ Buzzer
+
+---
+ board/ti/am335x/mux.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/board/ti/am335x/mux.c b/board/ti/am335x/mux.c
+index e6672a3c..e6d33a7b 100644
+--- a/board/ti/am335x/mux.c
++++ b/board/ti/am335x/mux.c
+@@ -30,9 +30,9 @@ static struct module_pin_mux lcd_pin_mux[] = {
+         {OFFSET(lcd_vsync), (MODE(7) | PULLUDEN)},   /* GPIO2_22 */    //-->KM-LCD_RS
+         {OFFSET(lcd_pclk),  (MODE(7) | PULLUDEN)},   /* GPIO2_24 */    //-->KM-LCD_EN
+         {OFFSET(lcd_hsync), (MODE(7) | PULLUDEN)},   /* GPIO2_23 */    //-->KM-LCD_RW
+-        {OFFSET(lcd_data13), (MODE(0))},             /* lcd_data13 */ // By default disable Buzzer
++        {OFFSET(lcd_data13), (MODE(7))},             /* lcd_data13 */ // By default Enable Buzzer
+         {OFFSET(lcd_data14), (MODE(7))},             /* lcd_data14-gpio0_10 */ // By default enable USER LED
+-        {OFFSET(lcd_data15), (PULLUDEN | RXACTIVE) | MODE(7)},             /* lcd_data15 */ // Bydefault disable USER SW
++        {OFFSET(lcd_data15), (PULLUDEN | RXACTIVE) | MODE(7)},             /* lcd_data15 */ // Bydefault Enable USER SW
+ 
+         {-1},
+ };
+-- 
+2.25.1
+

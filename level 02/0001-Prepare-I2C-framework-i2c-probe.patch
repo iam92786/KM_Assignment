@@ -1,0 +1,120 @@
+From 2f1ab06aa87979e9b476b481db7eea8ce5357cda Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Thu, 28 Jul 2022 16:31:55 +0530
+Subject: [PATCH] Prepare I2C framework - i2c probe
+
+---
+ cmd/i2c.c                       |  2 +-
+ drivers/i2c/i2c-uclass-compat.c |  2 +-
+ drivers/i2c/i2c-uclass.c        |  2 +-
+ drivers/i2c/omap24xx_i2c.c      | 20 +++++++++++++-------
+ 4 files changed, 16 insertions(+), 10 deletions(-)
+
+diff --git a/cmd/i2c.c b/cmd/i2c.c
+index 09c4ba9a..5e4e76bb 100644
+--- a/cmd/i2c.c
++++ b/cmd/i2c.c
+@@ -961,7 +961,7 @@ static int do_i2c_probe (cmd_tbl_t *cmdtp, int flag, int argc, char * const argv
+ 	if (i2c_get_cur_bus(&bus))
+ 		return CMD_RET_FAILURE;
+ #endif
+-
++        printf("%s:%s:%d\n",__FILE__,__func__,__LINE__);
+ 	if (argc == 2)
+ 		addr = simple_strtol(argv[1], 0, 16);
+ 
+diff --git a/drivers/i2c/i2c-uclass-compat.c b/drivers/i2c/i2c-uclass-compat.c
+index b3ade881..a5ad18b2 100644
+--- a/drivers/i2c/i2c-uclass-compat.c
++++ b/drivers/i2c/i2c-uclass-compat.c
+@@ -33,7 +33,7 @@ int i2c_probe(uint8_t chip_addr)
+ {
+ 	struct udevice *bus, *dev;
+ 	int ret;
+-
++        printf("%s:%s:%d\n",__FILE__,__func__,__LINE__);
+ 	ret = uclass_get_device_by_seq(UCLASS_I2C, cur_busnum, &bus);
+ 	if (ret) {
+ 		debug("Cannot find I2C bus %d: err=%d\n", cur_busnum, ret);
+diff --git a/drivers/i2c/i2c-uclass.c b/drivers/i2c/i2c-uclass.c
+index 49e23a0a..60724b9f 100644
+--- a/drivers/i2c/i2c-uclass.c
++++ b/drivers/i2c/i2c-uclass.c
+@@ -252,7 +252,7 @@ static int i2c_probe_chip(struct udevice *bus, uint chip_addr,
+ 	struct dm_i2c_ops *ops = i2c_get_ops(bus);
+ 	struct i2c_msg msg[1];
+ 	int ret;
+-
++        printf("%s:%s:%d\n",__FILE__,__func__,__LINE__);
+ 	if (ops->probe_chip) {
+ 		ret = ops->probe_chip(bus, chip_addr, chip_flags);
+ 		if (!ret || ret != -ENOSYS)
+diff --git a/drivers/i2c/omap24xx_i2c.c b/drivers/i2c/omap24xx_i2c.c
+index 4b93e02b..e1c45d2a 100644
+--- a/drivers/i2c/omap24xx_i2c.c
++++ b/drivers/i2c/omap24xx_i2c.c
+@@ -254,7 +254,8 @@ static u16 wait_for_event(void __iomem *i2c_base, int ip_rev, int waitdelay)
+ 	u16 status;
+ 	int timeout = I2C_TIMEOUT;
+ 	int irq_stat_reg;
+-
++        printf("%s:%s:%d\n",__FILE__,__func__,__LINE__);
++	printf("%d\n",waitdelay);
+ 	irq_stat_reg = (ip_rev == OMAP_I2C_REV_V1) ?
+ 		       OMAP_I2C_STAT_REG : OMAP_I2C_IP_V2_IRQSTATUS_RAW;
+ 	do {
+@@ -482,7 +483,7 @@ static int __omap24_i2c_probe(void __iomem *i2c_base, int ip_rev, int waitdelay,
+ {
+ 	u16 status;
+ 	int res = 1; /* default = fail */
+-
++        printf("%s:%s:%d\n",__FILE__,__func__,__LINE__);
+ 	if (chip == omap_i2c_read_reg(i2c_base, ip_rev, OMAP_I2C_OA_REG))
+ 		return res;
+ 
+@@ -552,7 +553,7 @@ static int __omap24_i2c_read(void __iomem *i2c_base, int ip_rev, int waitdelay,
+ {
+ 	int i2c_error = 0;
+ 	u16 status;
+-
++        uchar temp;
+ 	if (alen < 0) {
+ 		puts("I2C read: addr len < 0\n");
+ 		return 1;
+@@ -681,8 +682,13 @@ static int __omap24_i2c_read(void __iomem *i2c_base, int ip_rev, int waitdelay,
+ 			goto rd_exit;
+ 		}
+ 		if (status & I2C_STAT_RRDY) {
+-			*buffer++ = omap_i2c_read_reg(i2c_base, ip_rev,
+-						      OMAP_I2C_DATA_REG);
++			//*buffer++ = omap_i2c_read_reg(i2c_base, ip_rev,OMAP_I2C_DATA_REG);
++			temp = omap_i2c_read_reg(i2c_base, ip_rev,
++ 						      OMAP_I2C_DATA_REG);
++			printf("buffer:%x\n",temp);
++			*buffer++ = temp;
++
++
+ 			omap_i2c_write_reg(i2c_base, ip_rev,
+ 					   I2C_STAT_RRDY, OMAP_I2C_STAT_REG);
+ 		}
+@@ -1030,7 +1036,7 @@ static int omap_i2c_set_bus_speed(struct udevice *bus, unsigned int speed)
+ 	struct omap_i2c *priv = dev_get_priv(bus);
+ 
+ 	priv->speed = speed;
+-
++         
+ 	return __omap24_i2c_setspeed(priv->regs, priv->ip_rev, speed,
+ 				     &priv->waitdelay);
+ }
+@@ -1039,7 +1045,7 @@ static int omap_i2c_probe_chip(struct udevice *bus, uint chip_addr,
+ 				     uint chip_flags)
+ {
+ 	struct omap_i2c *priv = dev_get_priv(bus);
+-
++        printf("%s:%s:%d\n",__FILE__,__func__,__LINE__);
+ 	return __omap24_i2c_probe(priv->regs, priv->ip_rev, priv->waitdelay,
+ 				  chip_addr);
+ }
+-- 
+2.25.1
+

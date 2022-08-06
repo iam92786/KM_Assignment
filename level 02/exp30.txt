@@ -1,0 +1,35 @@
+km@KM-BBB:~$ ls
+evtest  i2c_app  install  km-bbb-app  kprobe2.ko  panic.ko
+km@KM-BBB:~$ ls -la /dev/i2c*
+crw-rw---- 1 root i2c 89, 0 Jul 26 09:23 /dev/i2c-0
+crw-rw---- 1 root i2c 89, 1 Jul 26 09:23 /dev/i2c-1
+km@KM-BBB:~$ sudo ./i2c_app r 0 1
+[sudo] password for km: 
+The value read from the register is Dec:65 Hex:41
+km@KM-BBB:~$ sudo ./i2c_app r 0 1
+The value read from the register is Dec:69 Hex:45
+km@KM-BBB:~$ sudo ./i2c_app r 1 1
+The value read from the register is Dec:41 Hex:29
+km@KM-BBB:~$ sudo ./i2c_app r 2 1
+The value read from the register is Dec:24 Hex:18
+km@KM-BBB:~$ sudo ./i2c_app r 3 1
+The value read from the register is Dec:4 Hex:4
+km@KM-BBB:~$ sudo ./i2c_app r 4 1
+The value read from the register is Dec:40 Hex:28
+km@KM-BBB:~$ sudo ./i2c_app r 5 1
+The value read from the register is Dec:7 Hex:7
+km@KM-BBB:~$ sudo ./i2c_app r 6 1
+The value read from the register is Dec:36 Hex:24
+km@KM-BBB:~$ sudo ./i2c_app r 7 1
+The value read from the register is Dec:0 Hex:0
+km@KM-BBB:~$ dmesg | grep probe
+[    0.000642] timer_probe: no matching timers found
+[    1.384906] libphy: Fixed MDIO Bus: probed
+[    1.498657] libphy: 4a101000.mdio: probed
+[    1.783902] drivers/i2c/busses/i2c-omap.c:omap_i2c_probe:1377
+[    1.927420] drivers/i2c/busses/i2c-omap.c:omap_i2c_probe:1524
+[    1.933991] drivers/i2c/busses/i2c-omap.c:omap_i2c_probe:1377
+[    1.947892] drivers/i2c/busses/i2c-omap.c:omap_i2c_probe:1524
+[    1.956082] gpio_keys_probe :(null) :-1066441280 
+km@KM-BBB:~$ KM-BBB login: km
+

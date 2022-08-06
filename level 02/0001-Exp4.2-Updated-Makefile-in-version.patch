@@ -1,0 +1,25 @@
+From 766164f0897be9bce8512bb98cfc24fd97a619cc Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Tue, 19 Jul 2022 20:36:32 +0530
+Subject: [PATCH] Updated Makefile in version
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 3c892a771..53ebe6aab 100664
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 4
+ PATCHLEVEL = 19
+ SUBLEVEL = 94
+-EXTRAVERSION =
++EXTRAVERSION = arshad-kernel
+ NAME = "People's Front"
+ 
+ # *DOCUMENTATION*
+-- 
+2.25.1
+

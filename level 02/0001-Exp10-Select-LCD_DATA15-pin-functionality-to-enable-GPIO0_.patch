@@ -1,0 +1,26 @@
+From eca82e87b9cb2adb5fc3cc5e6bd613404ef2c642 Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Wed, 20 Jul 2022 15:50:53 +0530
+Subject: [PATCH 2/2] Select LCD_DATA15 pin functionality to enable GPIO0_11 to
+ enter switch
+
+---
+ board/ti/am335x/mux.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/board/ti/am335x/mux.c b/board/ti/am335x/mux.c
+index 12847072..e6672a3c 100644
+--- a/board/ti/am335x/mux.c
++++ b/board/ti/am335x/mux.c
+@@ -32,7 +32,7 @@ static struct module_pin_mux lcd_pin_mux[] = {
+         {OFFSET(lcd_hsync), (MODE(7) | PULLUDEN)},   /* GPIO2_23 */    //-->KM-LCD_RW
+         {OFFSET(lcd_data13), (MODE(0))},             /* lcd_data13 */ // By default disable Buzzer
+         {OFFSET(lcd_data14), (MODE(7))},             /* lcd_data14-gpio0_10 */ // By default enable USER LED
+-        {OFFSET(lcd_data15), (PULLUDEN | RXACTIVE)},             /* lcd_data15 */ // Bydefault disable USER SW
++        {OFFSET(lcd_data15), (PULLUDEN | RXACTIVE) | MODE(7)},             /* lcd_data15 */ // Bydefault disable USER SW
+ 
+         {-1},
+ };
+-- 
+2.25.1
+

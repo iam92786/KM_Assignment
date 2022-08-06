@@ -1,0 +1,16 @@
+km@KM-BBB:~$ cat /dev/gpio1_switch 
+cat: /dev/gpio1_switch: Permission denied
+km@KM-BBB:~$ sudo cat /dev/gpio1_switch                                                          
+[  140.540809] Reading from device
+[  140.544374] Process 569 (cat) Going to Sleep
+[  140.548680] Process awaken - Now Data is available
+[  146.447087] drivers/gpio/gpio-omap.c:omap_gpio_irq_handler:752
+[  146.453724] inside the handler
+[  146.457764] The count is 1 
+[  146.460764] Process awaken - Now Data is available
+[  146.465824] drivers/gpio/gpiolib.c:gpiod_get_raw_value:2938
+[  146.471527] drivers/gpio/gpio-omap.c:omap_gpio_get:1015
+1[  146.484491] Reading from device
+[  146.487776] Data is available
+km@KM-BBB:~$ 
+

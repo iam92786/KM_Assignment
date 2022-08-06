@@ -1,0 +1,53 @@
+From 6ca6aad463e1eb15b4638ca82eed647d67a0cfa7 Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Thu, 28 Jul 2022 18:44:02 +0530
+Subject: [PATCH] I2C-Adapter-framework
+
+---
+ arch/arm/boot/dts/km-bbb-am335x.dts | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm/boot/dts/km-bbb-am335x.dts b/arch/arm/boot/dts/km-bbb-am335x.dts
+index 728249f2b..54a219770 100644
+--- a/arch/arm/boot/dts/km-bbb-am335x.dts
++++ b/arch/arm/boot/dts/km-bbb-am335x.dts
+@@ -60,6 +60,13 @@
+                         gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
+                         wakeup-source;
+ 		};
++                switch11 {
++			label = "enter";
++                        linux,code = <28>;
++                        /*linux,code = <KEY_VOLUMEDOWN>;*/
++                        gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
++                        wakeup-source;
++		};
+ 	};
+ 
+ };
+@@ -106,5 +113,22 @@
+                 0x078   0x0f    /*P9_12(GPIO1_28-->RS485_CONTROL)Mode7|Pull_UPDN Disable*/
+                 >;
+         };
++
++	i2c1_pins: pinmux_i2c1_pins {
++                pinctrl-single,pins = <
++                         AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_INPUT_PULLUP, MUX_MODE2)        /* spi0_cs0.i2c0_scl */
++                         AM33XX_PADCONF(AM335X_PIN_SPI0_D1, PIN_INPUT_PULLUP, MUX_MODE2)        /* spi0_d1.i2c0_sda */
++                 >;
++         };
++
+ };
+ 
++&i2c1 {
++         pinctrl-names = "default";
++         pinctrl-0 = <&i2c1_pins>;
++
++         status = "okay";
++         clock-frequency = <100000>;
++         symlink = "bone/i2c/0";
++ };
++
+-- 
+2.25.1
+

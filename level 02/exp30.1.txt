@@ -1,0 +1,13 @@
+   47.199501] configfs-gadget gadget: acm ttyGS0 req21.20 v0000 i0004 l7
+[   53.198070] configfs-gadget gadget: acm ttyGS0 req21.22 v0000 i0004 l0
+[   70.365953] i2c i2c-1: ioctl, cmd=0x705, arg=0x22058
+[   70.365985] i2c i2c-1: ioctl, cmd=0x703, arg=0x68
+[   70.366011] i2c i2c-1: ioctl, cmd=0x720, arg=0xbec1bc20
+[   70.389997] omap_i2c 4802a000.i2c: addr: 0x0068, len: 1, flags: 0x0, stop: 0
+[   70.390387] omap_i2c 4802a000.i2c: IRQ (ISR = 0x0010)
+[   70.390584] omap_i2c 4802a000.i2c: IRQ (ISR = 0x0004)
+[   70.390803] omap_i2c 4802a000.i2c: addr: 0x0068, len: 1, flags: 0x1, stop: 1
+[   70.391063] omap_i2c 4802a000.i2c: IRQ (ISR = 0x0008)
+[   70.391079] omap_i2c 4802a000.i2c: IRQ (ISR = 0x0004)
+km@KM-BBB:~$ 
+

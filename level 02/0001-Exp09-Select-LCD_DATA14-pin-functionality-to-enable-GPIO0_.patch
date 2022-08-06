@@ -1,0 +1,40 @@
+From b32f12ea376fc057aa2d17f3ff647c753db8ba6e Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Wed, 20 Jul 2022 15:18:50 +0530
+Subject: [PATCH] Select LCD_DATA14 pin functionality to enable GPIO0_10 to RED
+ LED
+
+---
+ Makefile              | 2 +-
+ board/ti/am335x/mux.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index e291bf59..69832619 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ VERSION = 2019
+ PATCHLEVEL = 04
+ SUBLEVEL =
+-EXTRAVERSION = KernelMasters
++EXTRAVERSION = arshad-bbb-ubbot
+ NAME =
+ 
+ # *DOCUMENTATION*
+diff --git a/board/ti/am335x/mux.c b/board/ti/am335x/mux.c
+index 1fa0bc8e..35793532 100644
+--- a/board/ti/am335x/mux.c
++++ b/board/ti/am335x/mux.c
+@@ -31,7 +31,7 @@ static struct module_pin_mux lcd_pin_mux[] = {
+         {OFFSET(lcd_pclk),  (MODE(7) | PULLUDEN)},   /* GPIO2_24 */    //-->KM-LCD_EN
+         {OFFSET(lcd_hsync), (MODE(7) | PULLUDEN)},   /* GPIO2_23 */    //-->KM-LCD_RW
+         {OFFSET(lcd_data13), (MODE(0))},             /* lcd_data13 */ // By default disable Buzzer
+-        {OFFSET(lcd_data14), (MODE(0))},             /* lcd_data14 */ // By default disable USER LED
++        {OFFSET(lcd_data14), (MODE(7))},             /* lcd_data14-gpio0_10 */ // By default enable USER LED
+         {OFFSET(lcd_data15), (MODE(0))},             /* lcd_data15 */ // Bydefault disable USER SW
+ 
+         {-1},
+-- 
+2.25.1
+

@@ -1,0 +1,54 @@
+From b2d13f8fbfcb60910c84a93383015ba3b816fcbc Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Thu, 28 Jul 2022 18:05:48 +0530
+Subject: [PATCH 2/2] keyboards Gpio_keys
+
+---
+ arch/arm/boot/dts/km-bbb-am335x.dts | 9 +++++++++
+ drivers/input/keyboard/gpio_keys.c  | 3 ++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/km-bbb-am335x.dts b/arch/arm/boot/dts/km-bbb-am335x.dts
+index 728249f2b..50b5fe638 100644
+--- a/arch/arm/boot/dts/km-bbb-am335x.dts
++++ b/arch/arm/boot/dts/km-bbb-am335x.dts
+@@ -60,6 +60,15 @@
+                         gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
+                         wakeup-source;
+ 		};
++				switch11 {
++                          label = "ENTER";
++                          linux,code = <28>;
++                          /*linux,code = <KEY_VOLUMEUP>;*/
++                          gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
++                          wakeup-source;
++                  };
++ 
++
+ 	};
+ 
+ };
+diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
+index 492a971b9..8325dcce1 100644
+--- a/drivers/input/keyboard/gpio_keys.c
++++ b/drivers/input/keyboard/gpio_keys.c
+@@ -777,7 +777,7 @@ static int gpio_keys_probe(struct platform_device *pdev)
+ 	size_t size;
+ 	int i, error;
+ 	int wakeup = 0;
+-
++	printk("%s:%s:%d",__FILE__,__func__,__LINE__);
+ 	if (!pdata) {
+ 		pdata = gpio_keys_get_devtree_pdata(dev);
+ 		if (IS_ERR(pdata))
+@@ -871,6 +871,7 @@ static int gpio_keys_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	device_init_wakeup(dev, wakeup);
++    printk("%s:%s:%d",__FILE__,__func__,__LINE__);
+ 
+ 	return 0;
+ }
+-- 
+2.25.1
+

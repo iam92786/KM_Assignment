@@ -1,0 +1,281 @@
+From f1a9adb93e02cb15832729cf3a592aeaf0b13f7d Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Sat, 6 Aug 2022 00:03:22 +0530
+Subject: [PATCH] Question: Write a gpio switch driver to implement character
+ device driver, blocking IO and interrupt handling.
+
+---
+ arch/arm/boot/dts/km-bbb-am335x.dts  |  40 +++++--
+ drivers/input/keyboard/Kconfig       |   5 +
+ drivers/input/keyboard/Makefile      |   1 +
+ drivers/input/keyboard/switch_intr.c | 165 +++++++++++++++++++++++++++
+ 4 files changed, 202 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/input/keyboard/switch_intr.c
+
+diff --git a/arch/arm/boot/dts/km-bbb-am335x.dts b/arch/arm/boot/dts/km-bbb-am335x.dts
+index 50b5fe638..513a2c150 100644
+--- a/arch/arm/boot/dts/km-bbb-am335x.dts
++++ b/arch/arm/boot/dts/km-bbb-am335x.dts
+@@ -60,14 +60,15 @@
+                         gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
+                         wakeup-source;
+ 		};
+-				switch11 {
+-                          label = "ENTER";
+-                          linux,code = <28>;
+-                          /*linux,code = <KEY_VOLUMEUP>;*/
+-                          gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
+-                          wakeup-source;
+-                  };
+- 
++
++//				switch11 {
++//                          label = "ENTER";
++//                          linux,code = <28>;
++							/*linux,code = <KEY_VOLUMEUP>;*/
++//                          gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
++//                          wakeup-source;
++//                  };
++				  
+ 
+ 	};
+ 
+@@ -84,7 +85,6 @@
+ 	};
+ };
+ 
+-
+ &am33xx_pinmux {
+ 
+         km_gpio_pins: pinmux_km_gpio_pins {
+@@ -115,5 +115,27 @@
+                 0x078   0x0f    /*P9_12(GPIO1_28-->RS485_CONTROL)Mode7|Pull_UPDN Disable*/
+                 >;
+         };
++
++i2c1_pins: pinmux_i2c1_pins {
++                     pinctrl-single,pins = <
++                             AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_INPUT_PULLUP, MUX_MODE2)       
++                             AM33XX_PADCONF(AM335X_PIN_SPI0_D1, PIN_INPUT_PULLUP, MUX_MODE2)        
++                       >;
++               };
+ };
+ 
++   &i2c1 {
++        pinctrl-names = "default";
++        //pinctrl-0 = <&i2c0_pins>;
++        pinctrl-0 = <&i2c1_pins>;
++
++        status = "okay";
++        clock-frequency = <100000>;
++
++        rtc1: ds1307@68 {
++                compatible = "dallas,ds1307";
++                reg = <0x68>;
++                #address-cells = <1>;
++                #size-cells = <1>;
++        };
++   };
+diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kconfig
+index 4713957b0..f9bbe9364 100644
+--- a/drivers/input/keyboard/Kconfig
++++ b/drivers/input/keyboard/Kconfig
+@@ -12,6 +12,11 @@ menuconfig INPUT_KEYBOARD
+ 
+ if INPUT_KEYBOARD
+ 
++config SWITCH_INTR
++	tristate "GPIO Switch Interrupt"
++	help 
++		Gpio0_11 acts as interrupt switch
++
+ config KEYBOARD_ADC
+ 	tristate "ADC Ladder Buttons"
+ 	depends on IIO
+diff --git a/drivers/input/keyboard/Makefile b/drivers/input/keyboard/Makefile
+index 182e92985..612d8449e 100644
+--- a/drivers/input/keyboard/Makefile
++++ b/drivers/input/keyboard/Makefile
+@@ -5,6 +5,7 @@
+ 
+ # Each configuration option enables a list of files.
+ 
++obj-$(CONFIG_SWITCH_INTR) 		+= switch_intr.o
+ obj-$(CONFIG_KEYBOARD_ADC)		+= adc-keys.o
+ obj-$(CONFIG_KEYBOARD_ADP5520)		+= adp5520-keys.o
+ obj-$(CONFIG_KEYBOARD_ADP5588)		+= adp5588-keys.o
+diff --git a/drivers/input/keyboard/switch_intr.c b/drivers/input/keyboard/switch_intr.c
+new file mode 100644
+index 000000000..fa49713b5
+--- /dev/null
++++ b/drivers/input/keyboard/switch_intr.c
+@@ -0,0 +1,165 @@
++#include <linux/cdev.h>
++#include <linux/device.h>
++#include <linux/fs.h>
++#include <linux/gpio.h>
++#include <linux/module.h>
++#include <linux/sched.h>
++#include <linux/version.h>
++#include <linux/uaccess.h>
++#include <linux/interrupt.h>
++#include <linux/irq.h>
++#include <linux/moduleparam.h>
++
++static int gpio_in = 11; // Par defaut : broche 10
++//static int gpio_out=10;
++//module_param(gpio_in, int, 0644);
++static int gpio_irq = 0;
++module_param(gpio_in,int,0);
++//module_param(gpio_out,int,0);
++//for gpio read
++int count = 0;  
++int data_present=0;
++
++static dev_t          gpio_dev;
++static struct cdev    gpio_cdev;
++static struct class * gpio_class = NULL;
++
++wait_queue_head_t my_queue;
++DECLARE_WAIT_QUEUE_HEAD(my_queue);
++
++
++// INTERRUPT HANDLER
++irqreturn_t handler_irq_gpio(int irq, void * ident)
++{
++    printk("inside the handler\n");
++    count++;
++    data_present = 1;
++    wake_up(&my_queue);
++    printk("The count is %d \n", count);
++    return IRQ_HANDLED;
++}
++
++static int gpio_read(struct file * filp, char * buffer, size_t length, loff_t * offset);
++
++static struct file_operations fops_gpio = {
++    .owner   =  THIS_MODULE,
++    .read    =  gpio_read,
++  };
++
++static int __init gpio_init (void)
++{
++  int err;
++
++  gpio_irq = gpio_to_irq(gpio_in);
++
++   printk("interrupt request number:%d",gpio_irq);
++
++  if ((err = gpio_direction_output(gpio_in, 0)) != 0) {
++    gpio_free(gpio_in);
++    return err;
++  }
++
++  if ((err = gpio_request(gpio_in, THIS_MODULE->name)) != 0) {
++    gpio_free(gpio_in);
++    return err;
++  }
++  if ((err = gpio_direction_input(gpio_in)) != 0) {
++    gpio_free(gpio_in);
++    //gpio_free(gpio_out);
++    return err;
++  }
++
++  if ((err = request_irq(gpio_irq, handler_irq_gpio, 0 , THIS_MODULE->name, 0)) != 0) {
++    gpio_free(gpio_in);
++    //gpio_free(gpio_out);
++    return err;
++  }
++  irq_set_irq_type(gpio_irq, IRQF_TRIGGER_RISING);
++
++
++  ////////////////////////////////////
++
++  if ((err = alloc_chrdev_region(& gpio_dev, 0, 1, THIS_MODULE->name)) < 0) {
++    gpio_free(gpio_in);
++    return err;
++  }
++
++  gpio_class = class_create(THIS_MODULE, "class_gpio");
++  if (IS_ERR(gpio_class)) {
++    unregister_chrdev_region(gpio_dev, 1);
++    gpio_free(gpio_in);
++    return -EINVAL;
++  }
++
++  device_create(gpio_class, NULL, gpio_dev, NULL, THIS_MODULE->name);
++
++  cdev_init(& gpio_cdev, & fops_gpio);
++
++  if ((err = cdev_add(& gpio_cdev, gpio_dev, 1)) != 0) {
++    device_destroy(gpio_class, gpio_dev);
++    class_destroy(gpio_class);
++    unregister_chrdev_region(gpio_dev, 1);
++    gpio_free(gpio_in);
++    return err;
++  }
++  return 0;
++}
++
++static int gpio_read(struct file * filp, char * buffer, size_t length, loff_t * offset)
++{
++
++  printk("Reading from device\n");
++  if(data_present == 0)
++  {
++    printk("Process %d (%s) Going to Sleep\n",current->pid,current->comm);
++    // Data is not available
++//    wait_event(my_queue,(data_present==1)); // uninterruptible sleep
++    printk(KERN_INFO "Process awaken - Now Data is available\n");
++    
++    if(wait_event_interruptible(my_queue,(data_present==1)))
++    {
++    // error
++    printk(KERN_ERR "Signal Occurs\n");
++    }
++    else
++    {
++    //success
++    printk(KERN_INFO "Process awaken - Now Data is available\n");
++    //data_present =0 ;
++    char chaine[32];
++    int lg;
++    snprintf(chaine, 32, "%d", gpio_get_value(gpio_in));
++    lg = strlen(chaine) + 1;
++    if (lg > length)
++      return -ENOMEM;
++    if (copy_to_user(buffer, chaine, lg) != 0)
++      return -EFAULT;
++    //data_present =0 ;
++    return lg;
++    // added to clear and block again
++    }
++  }
++  else
++  {
++  printk(KERN_INFO "Data is available\n");
++  }
++
++  return 0;
++
++}
++
++static void __exit gpio_exit (void)
++{
++  cdev_del(& gpio_cdev);
++  device_destroy(gpio_class, gpio_dev);
++  class_destroy(gpio_class);
++  unregister_chrdev_region(gpio_dev, 1);
++  gpio_free(gpio_in);
++  free_irq(gpio_irq, THIS_MODULE->name);
++  gpio_free(gpio_in);
++  //gpio_free(gpio_out);
++}
++
++module_init(gpio_init);
++module_exit(gpio_exit);
++MODULE_LICENSE("GPL");  
+\ No newline at end of file
+-- 
+2.25.1
+

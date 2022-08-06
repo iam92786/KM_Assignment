@@ -1,0 +1,29 @@
+KM-BBB login: km
+Password: 
+Last login: Tue Jul 26 09:31:15 UTC 2022 on ttyS0
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+km@KM-BBB:~$ [   48.517273] configfs-gadget gadget: high-speed config #1: c
+[   48.542436] IPv6: ADDRCONF(NETDEV_CHANGE): usb0: link becomes ready
+[   48.571136] IPv6: ADDRCONF(NETDEV_CHANGE): usb1: link becomes ready
+
+km@KM-BBB:~$ ls
+evtest  i2c_app  install  km-bbb-app  kprobe2.ko  panic.ko  time-get
+km@KM-BBB:~$ ./time-get 
+Requested device cannot be opened!: Bad address
+km@KM-BBB:~$ ./time-get /dev/rtc1
+Requested device cannot be opened!: Permission denied
+km@KM-BBB:~$ sudo ./time-get /dev/rtc1                                                                                                                                                                     
+[sudo] password for km: 
+
+Current RTC Date/Time: 29-7-2024 13:37:00
+
+km@KM-BBB:~$ 
+CTRL-A Z for help | 115200 8N1 | NOR | Minicom 2.7.1 | VT102 | Offline | ttyUSB0                                                                                                                          
+
+

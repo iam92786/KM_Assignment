@@ -1,0 +1,161 @@
+rcn-ee.net Debian Console Image 25th Dec 2020
+
+Support/FAQ: http://www.kernelmasters.org
+
+default username:password is [km:km]
+
+KM-BBB login: km
+Password: 
+Last login: Tue Jul 26 09:28:25 UTC 2022 on ttyS0
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+km@KM-BBB:~$ ls -l /dev/rtc1
+crw------- 1 root root 253, 1 Jul 26 09:29 /dev/rtc1
+km@KM-BBB:~$ ls -l /dev/rtc*
+lrwxrwxrwx 1 root root      4 Jul 26 09:29 /dev/rtc -> rtc0
+crw------- 1 root root 253, 0 Jul 26 09:29 /dev/rtc0
+crw------- 1 root root 253, 1 Jul 26 09:29 /dev/rtc1
+km@KM-BBB:~$ i2cdetect -y -r 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: 50 -- -- 53 -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --                         
+km@KM-BBB:~$ i2cdetect -y -r 0x68
+Error: Could not open file `/dev/i2c-104' or `/dev/i2c/104': No such file or directory
+km@KM-BBB:~$ i2cdetect -y -r 1 0x60 0x6f
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                                                 
+10:                                                 
+20:                                                 
+30:                                                 
+40:                                                 
+50:                                                 
+60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- -- 
+70:                                                 
+km@KM-BBB:~$ i2cdump -y 1 50
+No size specified (using byte-data access)
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f    0123456789abcdef
+00: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+10: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+20: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+30: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+40: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+50: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+60: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+70: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+80: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+90: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+a0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+b0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+c0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+d0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+e0: XX XX XX XX XX XX XX XX [  263.797775] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+f0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+km@KM-BBB:~$ [  263.824865] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+i2cdump -y 1 50
+No size specified (using byte-data access)
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f    0123456789abcdef
+00: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+10: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+20: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+30: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+40: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+50: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+60: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+70: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+80: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+90: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+a0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX[  282.496750] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+
+b0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+c0: XX XX XX XX XX XX [  282.517348] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+d0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+e0: XX XX XX [  282.539569] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+XX XX 
+XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+f0: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+[  282.576620] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+km@KM-BBB:~$ 
+km@KM-BBB:~$ i2cdump -y 1 0x68
+No size specified (using byte-data access)
+Error: Could not set address to 0x68: Device or resource busy
+km@KM-BBB:~$ lsmod
+Module                  Size  Used by
+usb_f_acm              16384  2
+u_serial               20480  3 usb_f_acm
+usb_f_ncm              24576  2
+usb_f_rndis            28672  4
+u_ether                24576  2 usb_f_ncm,usb_f_rndis
+libcomposite           61440  16 usb_f_acm,usb_f_ncm,usb_f_rndis
+musb_dsps              20480  0
+musb_hdrc             131072  1 musb_dsps
+usbcore               217088  1 musb_hdrc
+cppi41                 20480  60
+evdev                  24576  1
+pm33xx                 16384  0
+wkup_m3_ipc            16384  1 pm33xx
+wkup_m3_rproc          16384  1
+remoteproc             45056  2 wkup_m3_rproc,wkup_m3_ipc
+virtio                 16384  1 remoteproc
+virtio_ring            28672  1 remoteproc
+tps65218_pwrbutton     16384  0
+ti_emif_sram           16384  1 pm33xx
+omap_rng               16384  0
+rng_core               16384  1 omap_rng
+at24                   20480  0
+omap_mailbox           20480  1
+rtc_ds1307             24576  0
+hwmon                  16384  1 rtc_ds1307
+musb_am335x            16384  0
+rtc_omap               20480  1
+omap_wdt               16384  0
+leds_gpio              16384  0
+led_class              16384  1 leds_gpio
+cpufreq_dt             16384  0
+autofs4                36864  2
+km@KM-BBB:~$ sudo rmmod rtc_ds1307
+[sudo] password for km: 
+km@KM-BBB:~$ i2cdump -y 1 0x68
+No size specified (using byte-data access)
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f    0123456789abcdef
+00: 13 23 13 05 29 07 24 00 04 22 20 54 20 05 00 20    ?#??)?$.?" T ?. 
+10: 00 81 04 00 80 60 44 05 20 01 48 81 40 30 00 00    .??.?`D? ?H?@0..
+20: 00 26 00 10 2a 40 02 44 14 08 61 51 60 81 00 01    .&.?*@?D??aQ`?.?
+30: 60 05 02 c0 84 22 69 00 81 00 23 80 10 13 ca 00    `????"i.?.#????.
+40: 13 23 13 05 29 07 24 00 04 22 20 54 20 05 00 20    ?#??)?$.?" T ?. 
+50: 00 81 04 00 80 60 44 05 20 01 48 81 40 30 00 00    .??.?`D? ?H?@0..
+60: 00 26 00 10 2a 40 02 44 14 08 61 [  335.455150] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+51 60 81 00 01    .&.?*@?D??aQ`?.?
+70: 60 05 02 c0 84 22 69 00 81 00 23 80 10 13 ca 00    `????"i.?.#????.[  335.495062] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+
+80: 13 23 13 05 29 07 24 00 04 22 20 54 20 05 00 20    ?#??)?$.?" T ?. 
+90: 00 81 04 00 80 60 44 05 [  335.535660] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+20 01 48 81 40 30 00 00    .??.?`D? ?H?@0..
+a0: 00 26 00 10 2a 40 02 44 14 08 61 51 60 81 00 01    .&.?*@?D??aQ`?.?
+b0: 60 05 [  335.578505] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+02 c0 84 22 69 00 81 00 23 80 10 13 ca 00    `????"i.?.#????.
+c0: 14 23 13 05 29 07 24 00 04 22 20 54 20 05 00 [  335.635713] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+20    ?#??)?$.?" T ?. 
+d0: 00 [  335.646924] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+81 04 00 80 60 44 05 20 01 48 81 40 30 00 00    .??.?`D? ?H?@0..
+e0: 00 26 00 10 2a 40 02 44 [  335.686595] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+14 08 61 51 60 81 00 01    .&.?*@?D??aQ`?.?
+f0: 60 05 02 c0 84 22 69 00 81 00 23 80 10 13 ca 00    `????"i.?.#????.
+km@KM-BBB:~$ [  335.733078] systemd-journald[82]: /dev/kmsg buffer overrun, some messages lost.
+
+km@KM-BBB:~$ 
+CTRL-A Z for help | 115200 8N1 | NOR | Minicom 2.7.1 | VT102 | Offline | ttyUSB0                                                                                                                          
+
+

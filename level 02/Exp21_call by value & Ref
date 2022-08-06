@@ -1,0 +1,102 @@
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from swap...
+(gdb) l
+1	#include <stdio.h>
+2	void swap(int x,int y)
+3	{
+4		int temp;
+5		temp=x;
+6		x=y;
+7		y=temp;
+8	}
+9	int main()
+10	{
+(gdb) l
+11		int x=10;
+12		int y=20;
+13		printf("Before swapping %d %d\n",x,y);
+14		swap(x,y);
+15		printf("After swapping %d %d\n",x,y);
+16	}
+(gdb) b 13
+Breakpoint 1 at 0x1186: file swap_CBV.c, line 13.
+(gdb) i b
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000000000001186 in main at swap_CBV.c:13
+(gdb) r
+Starting program: /home/im-rt-lp-1134/linux_traning/level2/swap 
+
+Breakpoint 1, main () at swap_CBV.c:13
+13		printf("Before swapping %d %d\n",x,y);
+(gdb) p x
+$1 = 10
+(gdb) p y
+$2 = 20
+(gdb) s
+__printf (format=0x555555556004 "Before swapping %d %d\n") at printf.c:28
+28	printf.c: No such file or directory.
+(gdb) n
+32	in printf.c
+(gdb) s
+33	in printf.c
+(gdb) n
+Before swapping 10 20
+36	in printf.c
+(gdb) s
+main () at swap_CBV.c:14
+14		swap(x,y);
+(gdb) s
+swap (x=21845, y=1431654941) at swap_CBV.c:3
+3	{
+(gdb) p xx
+No symbol "xx" in current context.
+(gdb) p x
+$3 = 21845
+(gdb) s
+5		temp=x;
+(gdb) p x
+$4 = 10
+(gdb) p y
+$5 = 20
+(gdb) p &x
+$6 = (int *) 0x7fffffffdebc
+(gdb) p &y
+$7 = (int *) 0x7fffffffdeb8
+(gdb) s
+6		x=y;
+(gdb) p x
+$8 = 10
+(gdb) s
+7		y=temp;
+(gdb) p x
+$9 = 20
+(gdb) s
+8	}
+(gdb) p y
+$10 = 10
+(gdb) p x
+$11 = 20
+(gdb) s
+main () at swap_CBV.c:15
+15		printf("After swapping %d %d\n",x,y);
+(gdb) p &x
+$12 = (int *) 0x7fffffffdee8
+(gdb) p &y
+$13 = (int *) 0x7fffffffdeec
+(gdb) n
+After swapping 10 20
+16	}
+

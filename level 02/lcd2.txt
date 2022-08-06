@@ -1,0 +1,13 @@
+km@KM-BBB:~$ ls
+evtest  i2c_app  install  km-bbb-app  kprobe2.ko  lcd2  panic.ko  time-get
+km@KM-BBB:~$ sudo ./lcd2                                                                                                                                                                                   
+[sudo] password for km: 
+GPIO pin:44 has export done
+GPIO pin:45 has export done
+GPIO pin:46 has export done
+GPIO pin:47 has export done
+GPIO pin:86 has export done
+GPIO pin:87 has export done
+GPIO pin:88 has export done
+km@KM-BBB:~$ 
+

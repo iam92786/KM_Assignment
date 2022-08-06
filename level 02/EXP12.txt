@@ -1,0 +1,101 @@
+
+Exp 12 :Prepare GPIO Device Driver framework (source code flow)
+arshad:=
+arshad:=
+arshad:='=
+arshad:=gpio clear 10
+:cmd/gpio.c:do_gpio:129
+drivers/gpio/gpio-uclass.c:gpio_direction_output:329
+drivers/gpio/omap_gpio.c:omap_gpio_direction_output:254
+drivers/gpio/omap_gpio.c:_set_gpio_dataout:100
+reg:44e07190 l:400
+drivers/gpio/omap_gpio.c:_set_gpio_direction:60
+reg:44e07134 l:fffff9fd
+gpio: pin 10 (gpio 10) value is 0
+drivers/gpio/gpio-uclass.c:gpio_get_value:449
+drivers/gpio/omap_gpio.c:omap_gpio_get_value:266
+drivers/gpio/omap_gpio.c:_get_gpio_value:117
+drivers/gpio/omap_gpio.c:_get_gpio_direction:81
+reg:44e07134 v:fffff9fd
+reg:44e0713c 
+
+arshad:=gpio set 10
+:cmd/gpio.c:do_gpio:129                                                                  
+drivetion_output:329                                                         
+drivers/gpio/omtput:254                                                      
+drivers/gpio/omap_gpio.c:_set_gpio_dataout:100
+reg:44e07194 l:2                        
+drivers/gpio/omap_gpio.c:_set_gpio_direction:60
+reg:44e07134 l:fffff9fd                 
+gpio: pin 1 (gpio 1) value is 1         
+drivers/gpio/gpio-uclass.c:gpio_get_value:449
+drivers/gpio/omap_gpio.c:omap_gpio_get_value:266
+drivers/gpio/omap_gpio.c:_get_gpio_value:117
+drivers/gpio/omap_gpio.c:_get_gpio_direction:81
+reg:44e07134 v:fffff9fd
+reg:44e0713c 
+
+arshad:=gpio input 11
+:cmd/gpio.c:do_gpio:129
+drivers/gpio/gpio-uclass.c:gpio_direction_input:304
+drivers/gpio/omap_gpio.c:omap_gpio_direction_input:241
+drivers/gpio/omap_gpio.c:_set_gpio_direction:60
+reg:44e07134 l:fffff9fd
+drivers/gpio/gpio-uclass.c:gpio_get_value:449
+drivers/gpio/omap_gpio.c:omap_gpio_get_value:266
+drivers/gpio/omap_gpio.c:_get_gpio_value:117
+drivers/gpio/omap_gpio.c:_get_gpio_direction:81
+reg:44e07134 v:fffff9fd
+reg:44e07138 
+gpio: pin 11 (gpio 11) value is 0
+
+arshad:=gpio input 11
+:cmd/gpio.c:do_gpio:129
+drivers/gpio/gpio-uclass.c:gpio_direction_input:304
+drivers/gpio/omap_gpio.c:omap_gpio_direction_input:241
+drivers/gpio/omap_gpio.c:_set_gpio_direction:60
+reg:44e07134 l:fffff9fd
+drivers/gpio/gpio-uclass.c:gpio_get_value:449
+drivers/gpio/omap_gpio.c:omap_gpio_get_value:266
+drivers/gpio/omap_gpio.c:_get_gpio_value:117
+drivers/gpio/omap_gpio.c:_get_gpio_direction:81
+reg:44e07134 v:fffff9fd
+reg:44e07138 
+gpio: pin 11 (gpio 11) value is 1
+
+arshad:=gpio set 9
+:cmd/gpio.c:do_gpio:129
+drivers/gpio/gpio-uclass.c:gpio_direction_output:329
+drivers/gpio/omap_gpio.c:omap_gpio_direction_output:254
+drivers/gpio/omap_gpio.c:_set_gpio_dataout:100
+reg:44e07194 l:200
+drivers/gpio/omap_gpio.c:_set_gpio_direction:60
+reg:44e07134 l:fffff9fd
+gpio: pin 9 (gpio 9) value is 1
+drivers/gpio/gpio-uclass.c:gpio_get_value:449
+drivers/gpio/omap_gpio.c:omap_gpio_get_value:266
+drivers/gpio/omap_gpio.c:_get_gpio_value:117
+drivers/gpio/omap_gpio.c:_get_gpio_direction:81
+reg:44e07134 v:fffff9fd
+reg:44e0713c 
+
+arshad:=gpio clear 9
+:cmd/gpio.c:do_gpio:129
+drivers/gpio/gpio-uclass.c:gpio_direction_output:329
+drivers/gpio/omap_gpio.c:omap_gpio_direction_output:254
+drivers/gpio/omap_gpio.c:_set_gpio_dataout:100
+reg:44e07190 l:200
+drivers/gpio/omap_gpio.c:_set_gpio_direction:60
+reg:44e07134 l:fffff9fd
+gpio: pin 9 (gpio 9) value is 0
+drivers/gpio/gpio-uclass.c:gpio_get_value:449
+drivers/gpio/omap_gpio.c:omap_gpio_get_value:266
+drivers/gpio/omap_gpio.c:_get_gpio_value:117
+drivers/gpio/omap_gpio.c:_get_gpio_direction:81
+reg:44e07134 v:fffff9fd
+reg:44e0713c 
+arshad:=
+arshad:=
+arshad:=
+arshad:=
+

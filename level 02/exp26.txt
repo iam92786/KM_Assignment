@@ -1,0 +1,76 @@
+km@KM-BBB:~$ ls
+evtest   install     kprobe2.ko  lcd3  lcd5    panic.ko  time-get
+i2c_app  km-bbb-app  lcd2        lcd4  main.c  task01
+
+km@KM-BBB:~$ sudo ./evtest /dev/input/event0 
+Input driver version is 1.0.1
+Input device ID: bus 0x19 vendor 0x1 product 0x1 version 0x100
+Input device name: "volume_key0"
+Supported events:
+  Event type 0 (Sync)
+  Event type 1 (Key)
+    Event code 28 (Enter)
+    Event code 114 (VolumeDown)
+    Event code 115 (VolumeUp)
+  Event type 20 (Repeat)
+
+Testing ... (interrupt to exit)
+Event: time 1722537470.964287, type 1 (Key), code 28 (Enter), value 1
+Event: time 1722537470.964287, -------------- Report Sync ------------
+Event: time 1722537471.062163, type 1 (Key), code 28 (Enter), value 0
+Event: time 1722537471.062187, -------------- Report Sync ------------
+Event: time 1722537538.899280, type 1 (Key), code 28 (Enter), value 1
+Event: time 1722537538.899280, -------------- Report Sync ------------
+Event: time 1722537538.907248, type 1 (Key), code 28 (Enter), value 0
+Event: time 1722537538.907273, -------------- Report Sync ------------
+Event: time 1722537559.495590, type 1 (Key), code 28 (Enter), value 1
+Event: time 1722537559.495590, -------------- Report Sync ------------
+Event: time 1722537559.577271, type 1 (Key), code 28 (Enter), value 0
+Event: time 1722537559.577296, -------------- Report Sync -----------
+
+
+//>>>For Value = 1
+(gdb) c
+Continuing.
+[Switching to Thread 16]
+
+Thread 17 hit Breakpoint 1, input_event (dev=0xdd01e800, type=1, code=28,
+    value=1) at drivers/input/input.c:433
+433		if (is_event_supported(type, dev->evbit, EV_MAX)) {
+(gdb) bt
+#0  input_event (dev=0xdd01e800, type=1, code=28, value=1)
+    at drivers/input/input.c:433
+#1  0xc06f0e48 in gpio_keys_gpio_report_event (bdata=0xdd01c5f8)
+    at drivers/input/keyboard/gpio_keys.c:380
+#2  0xc06f14c8 in gpio_keys_gpio_work_func (work=0xdd01c630)
+    at drivers/input/keyboard/gpio_keys.c:390
+#3  0xc015a250 in process_one_work (worker=0xde135800, work=0xdd01c630)
+    at kernel/workqueue.c:2153
+#4  0xc015a6d0 in worker_thread (__worker=0xde135800)
+    at kernel/workqueue.c:2296
+#5  0xc0161154 in kthread (_create=0xde12e040) at kernel/kthread.c:246
+#6  0xc01010b4 in ret_from_fork () at arch/arm/kernel/entry-common.S:158
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb)
+
+//>>>For Value = 0
+(gdb) bt
+#0  input_event (dev=0xdd01e800, type=0, code=0, value=0)
+    at drivers/input/input.c:433
+#1  0xc06f0e60 in input_sync (dev=<optimized out>)
+    at ./include/linux/input.h:418
+#2  gpio_keys_gpio_report_event (bdata=<optimized out>)
+    at drivers/input/keyboard/gpio_keys.c:382
+#3  0xc06f14c8 in gpio_keys_gpio_work_func (work=0xdd01c630)
+    at drivers/input/keyboard/gpio_keys.c:390
+#4  0xc015a250 in process_one_work (worker=0xde5d4e00, work=0xdd01c630)
+    at kernel/workqueue.c:2153
+#5  0xc015a6d0 in worker_thread (__worker=0xde5d4e00)
+    at kernel/workqueue.c:2296
+#6  0xc0161154 in kthread (_create=0xde5cd200) at kernel/kthread.c:246
+#7  0xc01010b4 in ret_from_fork () at arch/arm/kernel/entry-common.S:158
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) c
+
+
+-

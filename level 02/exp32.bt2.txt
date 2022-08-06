@@ -1,0 +1,21 @@
+(gdb) bt
+#0  kgdb_breakpoint () at kernel/debug/debug_core.c:1076
+#1  0xc05d6278 in __handle_sysrq (check_mask=<optimized out>, 
+    key=<optimized out>) at drivers/tty/sysrq.c:560
+#2  __handle_sysrq (key=103, check_mask=false) at drivers/tty/sysrq.c:533
+#3  0xc05d6884 in write_sysrq_trigger (file=<optimized out>, 
+    buf=0x5f0270 "g\n", count=0, ppos=<optimized out>)
+    at drivers/tty/sysrq.c:1105
+#4  0xc0369974 in proc_reg_write (file=<optimized out>, 
+    buf=<optimized out>, count=<optimized out>, ppos=<optimized out>)
+    at fs/proc/inode.c:245
+#5  0xc02ec800 in vfs_write (pos=<optimized out>, count=2, 
+    buf=<optimized out>, file=<optimized out>) at fs/read_write.c:574
+#6  vfs_write (file=0xdacbf180, buf=0x5f0270 "g\n", 
+    count=<optimized out>, pos=0xdd507f78) at fs/read_write.c:558
+#7  0xc02eca58 in ksys_write (fd=<optimized out>, buf=0x5f0270 "g\n", 
+    count=2) at fs/read_write.c:625
+#8  0xc0101000 in __idmap_text_end ()
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) 
+

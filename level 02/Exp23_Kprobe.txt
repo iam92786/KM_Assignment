@@ -1,0 +1,92 @@
+[  230.543123] kprobe registered
+[  325.942086] pre_handler: p->addr=0xc74161b8 
+[  325.946758] CPU: 0 PID: 570 Comm: cat Tainted: G           O      4.19.94-gc5c5500df #1
+[  325.954808] Hardware name: Generic AM33XX (Flattened Device Tree)
+[  325.960971] [<c0112de4>] (unwind_backtrace) from [<c010cf2c>] (show_stack+0x10/0x14)
+[  325.968769] [<c010cf2c>] (show_stack) from [<c0907c0c>] (dump_stack+0xe4/0x11c)
+[  325.976138] [<c0907c0c>] (dump_stack) from [<bf1fb030>] (handler_pre+0x14/0x20 [kprobe2])
+[  325.984410] [<bf1fb030>] (handler_pre [kprobe2]) from [<c021e664>] (aggr_pre_handler+0x6c/0xb8)
+[  325.993170] [<c021e664>] (aggr_pre_handler) from [<c0925810>] (kprobe_handler+0xd8/0x218)
+[  326.001398] [<c0925810>] (kprobe_handler) from [<c092596c>] (kprobe_trap_handler+0x1c/0x44)
+[  326.009800] [<c092596c>] (kprobe_trap_handler) from [<c010d3f8>] (do_undefinstr+0x11c/0x250)
+[  326.018290] [<c010d3f8>] (do_undefinstr) from [<c0101abc>] (__und_svc_finish+0x0/0x44)
+[  326.026251] Exception stack(0xdd737e28 to 0xdd737e70)
+[  326.031338] 7e20:                   de185cd4 00000009 4a99e67f c055f25c de185a90 de185a90
+[  326.039563] 7e40: dd014000 00000000 00001000 dd014000 00000000 00000000 de184400 dd737eb8
+[  326.047786] 7e60: c0557b44 c055f25c a0070013 ffffffff
+[  326.052878] [<c0101abc>] (__und_svc_finish) from [<c055f25c>] (omap_gpio_get+0x0/0x44)
+[  326.060842] [<c055f25c>] (omap_gpio_get) from [<de185a90>] (0xde185a90)
+[  326.067501] post_handler: p->addr=0xc74161b8 
+[  326.071888] CPU: 0 PID: 570 Comm: cat Tainted: G           O      4.19.94-gc5c5500df #1
+[  326.079934] Hardware name: Generic AM33XX (Flattened Device Tree)
+[  326.086069] [<c0112de4>] (unwind_backtrace) from [<c010cf2c>] (show_stack+0x10/0x14)
+[  326.093860] [<c010cf2c>] (show_stack) from [<c0907c0c>] (dump_stack+0xe4/0x11c)
+[  326.101215] [<c0907c0c>] (dump_stack) from [<c021e71c>] (aggr_post_handler+0x6c/0xa0)
+[  326.109092] [<c021e71c>] (aggr_post_handler) from [<c0925868>] (kprobe_handler+0x130/0x218)
+[  326.117494] [<c0925868>] (kprobe_handler) from [<c092596c>] (kprobe_trap_handler+0x1c/0x44)
+[  326.125894] [<c092596c>] (kprobe_trap_handler) from [<c010d3f8>] (do_undefinstr+0x11c/0x250)
+[  326.134381] [<c010d3f8>] (do_undefinstr) from [<c0101abc>] (__und_svc_finish+0x0/0x44)
+[  326.142341] Exception stack(0xdd737e28 to 0xdd737e70)
+[  326.147426] 7e20:                   de185cd4 00000009 4a99e67f c055f25c de185a90 de185a90
+[  326.155652] 7e40: dd014000 00000000 00001000 dd014000 00000000 00000000 de184400 dd737eb0
+[  326.163875] 7e60: c0557b44 c055f260 a0070013 ffffffff
+[  326.168960] [<c0101abc>] (__und_svc_finish) from [<c055f260>] (omap_gpio_get+0x4/0x44)
+[  326.176936] [<c055f260>] (omap_gpio_get) from [<c0557b44>] (gpiod_get_raw_value_commit+0x2c/0x180)
+[  326.185950] [<c0557b44>] (gpiod_get_raw_value_commit) from [<c0559090>] (gpiod_get_value_cansleep+0x20/0x40)
+[  326.195834] [<c0559090>] (gpiod_get_value_cansleep) from [<c055d460>] (value_show+0x24/0x4c)
+[  326.204334] [<c055d460>] (value_show) from [<c0608ef0>] (dev_attr_show+0x1c/0x48)
+[  326.211878] [<c0608ef0>] (dev_attr_show) from [<c037d9b8>] (sysfs_kf_read+0x48/0xc8)
+[  326.219673] [<c037d9b8>] (sysfs_kf_read) from [<c037ce30>] (kernfs_fop_read+0xb4/0x1d0)
+[  326.227734] [<c037ce30>] (kernfs_fop_read) from [<c02ec578>] (vfs_read+0x88/0x10c)
+[  326.235351] [<c02ec578>] (vfs_read) from [<c02ec978>] (ksys_read+0x58/0xdc)
+[  326.242357] [<c02ec978>] (ksys_read) from [<c0101000>] (ret_fast_syscall+0x0/0x28)
+[  326.249968] Exception stack(0xdd737fa8 to 0xdd737ff0)
+[  326.255053] 7fa0:                   00000074 7ff00000 00000000 b6a3e000 00020000 00000000
+[  326.263279] 7fc0: 00000074 7ff00000 004281d4 00000003 00000000 00000000 00020000 00000000
+[  326.271501] 7fe0: 00000003 bec66b10 b6f6752f b6ef0746
+[  326.292143] pre_handler: p->addr=0xc74161b8 
+[  326.296486] CPU: 0 PID: 570 Comm: cat Tainted: G           O      4.19.94-gc5c5500df #1
+[  326.304535] Hardware name: Generic AM33XX (Flattened Device Tree)
+[  326.310704] [<c0112de4>] (unwind_backtrace) from [<c010cf2c>] (show_stack+0x10/0x14)
+[  326.318505] [<c010cf2c>] (show_stack) from [<c0907c0c>] (dump_stack+0xe4/0x11c)
+[  326.325880] [<c0907c0c>] (dump_stack) from [<bf1fb030>] (handler_pre+0x14/0x20 [kprobe2])
+[  326.334120] [<bf1fb030>] (handler_pre [kprobe2]) from [<c021e664>] (aggr_pre_handler+0x6c/0xb8)
+[  326.342879] [<c021e664>] (aggr_pre_handler) from [<c0925810>] (kprobe_handler+0xd8/0x218)
+[  326.351107] [<c0925810>] (kprobe_handler) from [<c092596c>] (kprobe_trap_handler+0x1c/0x44)
+[  326.359508] [<c092596c>] (kprobe_trap_handler) from [<c010d3f8>] (do_undefinstr+0x11c/0x250)
+[  326.367998] [<c010d3f8>] (do_undefinstr) from [<c0101abc>] (__und_svc_finish+0x0/0x44)
+[  326.375958] Exception stack(0xdd737e28 to 0xdd737e70)
+[  326.381045] 7e20:                   de185cd4 00000009 4a99e67f c055f25c de185a90 de185a90
+[  326.389270] 7e40: dd014000 00000000 00001000 dd014000 00000002 00000000 de184400 dd737eb8
+[  326.397492] 7e60: c0557b44 c055f25c a0070013 ffffffff
+[  326.402586] [<c0101abc>] (__und_svc_finish) from [<c055f25c>] (omap_gpio_get+0x0/0x44)
+[  326.410552] [<c055f25c>] (omap_gpio_get) from [<de185a90>] (0xde185a90)
+[  326.417210] post_handler: p->addr=0xc74161b8 
+[  326.421599] CPU: 0 PID: 570 Comm: cat Tainted: G           O      4.19.94-gc5c5500df #1
+[  326.429645] Hardware name: Generic AM33XX (Flattened Device Tree)
+[  326.435779] [<c0112de4>] (unwind_backtrace) from [<c010cf2c>] (show_stack+0x10/0x14)
+[  326.443571] [<c010cf2c>] (show_stack) from [<c0907c0c>] (dump_stack+0xe4/0x11c)
+[  326.450925] [<c0907c0c>] (dump_stack) from [<c021e71c>] (aggr_post_handler+0x6c/0xa0)
+[  326.458804] [<c021e71c>] (aggr_post_handler) from [<c0925868>] (kprobe_handler+0x130/0x218)
+[  326.467205] [<c0925868>] (kprobe_handler) from [<c092596c>] (kprobe_trap_handler+0x1c/0x44)
+[  326.475605] [<c092596c>] (kprobe_trap_handler) from [<c010d3f8>] (do_undefinstr+0x11c/0x250)
+[  326.484092] [<c010d3f8>] (do_undefinstr) from [<c0101abc>] (__und_svc_finish+0x0/0x44)
+[  326.492052] Exception stack(0xdd737e28 to 0xdd737e70)
+[  326.497137] 7e20:                   de185cd4 00000009 4a99e67f c055f25c de185a90 de185a90
+[  326.505363] 7e40: dd014000 00000000 00001000 dd014000 00000002 00000000 de184400 dd737eb0
+[  326.513586] 7e60: c0557b44 c055f260 a0070013 ffffffff
+[  326.518672] [<c0101abc>] (__und_svc_finish) from [<c055f260>] (omap_gpio_get+0x4/0x44)
+[  326.526647] [<c055f260>] (omap_gpio_get) from [<c0557b44>] (gpiod_get_raw_value_commit+0x2c/0x180)
+[  326.535663] [<c0557b44>] (gpiod_get_raw_value_commit) from [<c0559090>] (gpiod_get_value_cansleep+0x20/0x40)
+[  326.545547] [<c0559090>] (gpiod_get_value_cansleep) from [<c055d460>] (value_show+0x24/0x4c)
+[  326.554046] [<c055d460>] (value_show) from [<c0608ef0>] (dev_attr_show+0x1c/0x48)
+[  326.561588] [<c0608ef0>] (dev_attr_show) from [<c037d9b8>] (sysfs_kf_read+0x48/0xc8)
+[  326.569383] [<c037d9b8>] (sysfs_kf_read) from [<c037ce30>] (kernfs_fop_read+0xb4/0x1d0)
+[  326.577444] [<c037ce30>] (kernfs_fop_read) from [<c02ec578>] (vfs_read+0x88/0x10c)
+[  326.585062] [<c02ec578>] (vfs_read) from [<c02ec978>] (ksys_read+0x58/0xdc)
+[  326.592068] [<c02ec978>] (ksys_read) from [<c0101000>] (ret_fast_syscall+0x0/0x28)
+[  326.599678] Exception stack(0xdd737fa8 to 0xdd737ff0)
+[  326.604762] 7fa0:                   00000074 7ff00000 00000000 b6a3e000 00020000 00000000
+[  326.612988] 7fc0: 00000074 7ff00000 004281d4 00000003 00000000 00000000 00020000 00000000
+[  326.621211] 7fe0: 00000003 bec66b10 b6f6752f b6ef0746
+

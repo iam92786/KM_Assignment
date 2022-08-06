@@ -1,0 +1,23 @@
+Enter Your Choice: 
+To enter bootmenu, run "km_bootmenu" command
+Stay @ Uboot mode
+KM=> ls
+ls - list files in a directory (default /)
+
+Usage:
+ls <interface> [<dev[:part]> [directory]]
+    - List files in directory 'directory' of partition 'part' on
+      device type 'interface' instance 'dev'.
+KM=> i2c dev
+Current bus is 0
+KM=> i2c probe
+Valid chip addresses: 24 34 50
+KM=> i2c dev 1
+Setting bus to 1
+KM=> i2c probe
+Valid chip addresses: 50 53 68
+KM=> i2c md 0x68 0x00 7
+0000: 32 59 14 03 28 07 22    2Y..(."
+KM=> i2c mm 0x68 0x00  
+00000000: 55 ? q
+

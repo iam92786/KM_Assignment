@@ -1,0 +1,39 @@
+From 56ff1c3f6704f9537dcbb22d32e956baafe067f5 Mon Sep 17 00:00:00 2001
+From: Boddu Kishore Kumar <kishore@kernelmasters.org>
+Date: Thu, 28 Jul 2022 17:48:04 +0530
+Subject: [PATCH] i2c-1 enable in dts file
+
+---
+ arch/arm/boot/dts/km-bbb-am335x.dts | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/arm/boot/dts/km-bbb-am335x.dts b/arch/arm/boot/dts/km-bbb-am335x.dts
+index 728249f2b..963f7c2aa 100644
+--- a/arch/arm/boot/dts/km-bbb-am335x.dts
++++ b/arch/arm/boot/dts/km-bbb-am335x.dts
+@@ -106,5 +106,22 @@
+                 0x078   0x0f    /*P9_12(GPIO1_28-->RS485_CONTROL)Mode7|Pull_UPDN Disable*/
+                 >;
+         };
++
++	i2c1_pins: pinmux_i2c1_pins {
++                pinctrl-single,pins = <
++                         AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_INPUT_PULLUP, MUX_MODE2)        /* spi0_cs0.i2c0_scl */
++                         AM33XX_PADCONF(AM335X_PIN_SPI0_D1, PIN_INPUT_PULLUP, MUX_MODE2)        /* spi0_d1.i2c0_sda */
++                 >;
++         };
++
++};
++
++&i2c1 {
++         pinctrl-names = "default";
++         pinctrl-0 = <&i2c1_pins>;
++
++         status = "okay";
++         clock-frequency = <100000>;
++         symlink = "bone/i2c/0";
+ };
+ 
+-- 
+2.17.1
+

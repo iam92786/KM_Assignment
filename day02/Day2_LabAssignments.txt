@@ -1,0 +1,8 @@
+
+Advanced File Operations:
+-------------------------
+1.	Write a program show the /dev/input/event0 device name?
+2.	Write a program to read framebuffer fixed size information?   
+		Hint: Device name is /dev/fb0.
+3.	WAP your own version of cat command using mmap system call?
+4.	Write an Linux System Programming copy one file content to another file using mmap() system call

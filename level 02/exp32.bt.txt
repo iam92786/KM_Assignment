@@ -1,0 +1,23 @@
+
+(gdb) bt
+#0  ds1307_get_time (dev=0xdd01cc20, t=0xdaa8fe98)
+    at drivers/rtc/rtc-ds1307.c:410
+#1  0xc06f9580 in __rtc_read_time (rtc=0xdd01d800, tm=0xdaa8fe98)
+    at drivers/rtc/interface.c:96
+#2  0xc06f960c in rtc_read_time (rtc=0xdd01d800, tm=0xdaa8fe98)
+    at drivers/rtc/interface.c:120
+#3  0xc06fc01c in rtc_dev_ioctl (file=<optimized out>, cmd=2149871625, 
+    arg=3198662236) at drivers/rtc/rtc-dev.c:327
+#4  0xc030197c in vfs_ioctl (arg=<optimized out>, cmd=<optimized out>, 
+    filp=<optimized out>) at fs/ioctl.c:46
+#5  file_ioctl (arg=<optimized out>, cmd=<optimized out>, 
+    filp=<optimized out>) at fs/ioctl.c:501
+#6  do_vfs_ioctl (filp=0xdd01cc20, fd=3198662292, cmd=<optimized out>, 
+    arg=3228554036) at fs/ioctl.c:688
+#7  0xc0302350 in ksys_ioctl (fd=3, cmd=2149871625, arg=3198662236)
+    at fs/ioctl.c:705
+#8  0xc0101000 in __idmap_text_end ()
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) 
+
+

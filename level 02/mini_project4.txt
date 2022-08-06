@@ -1,0 +1,18 @@
+New Thread 572]
+[New Thread 573]
+[Switching to Thread 47]
+
+Thread 33 hit Breakpoint 1, input_event (dev=0xde7fb000, type=1, code=28, value=1) at drivers/input/input.c:433
+433		if (is_event_supported(type, dev->evbit, EV_MAX)) {
+(gdb) bt
+#0  input_event (dev=0xde7fb000, type=1, code=28, value=1) at drivers/input/input.c:433
+#1  0xc06f5db8 in gpio_keys_gpio_report_event (bdata=0xdd00e1f8) at drivers/input/keyboard/gpio_keys.c:380
+#2  0xc06f6438 in gpio_keys_gpio_work_func (work=0xdd00e230) at drivers/input/keyboard/gpio_keys.c:390
+#3  0xc015a1c0 in process_one_work (worker=0xde5d3d00, work=0xdd00e230) at kernel/workqueue.c:2153
+#4  0xc015a640 in worker_thread (__worker=0xde5d3d00) at kernel/workqueue.c:2296
+#5  0xc01610c4 in kthread (_create=0xde5d2a40) at kernel/kthread.c:246
+#6  0xc01010b4 in ret_from_fork () at arch/arm/kernel/entry-common.S:158
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) 
+
+

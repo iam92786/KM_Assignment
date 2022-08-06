@@ -1,0 +1,131 @@
+From 3dd8b967989c205635db471687e9bfd85eef5ccb Mon Sep 17 00:00:00 2001
+From: iam92786 <iam92786@gmail.com>
+Date: Fri, 22 Jul 2022 20:00:41 +0530
+Subject: [PATCH] =?UTF-8?q?u-boot=20customization=20=E2=80=93=20Add=20blin?=
+ =?UTF-8?q?k=20command=20in=20u-boot=20command=20prompt?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ cmd/Kconfig  |  6 +++++
+ cmd/Makefile |  3 ++-
+ cmd/blink.c  | 68 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 76 insertions(+), 1 deletion(-)
+ create mode 100644 cmd/blink.c
+
+diff --git a/cmd/Kconfig b/cmd/Kconfig
+index 6dcb383f..fc0bab7f 100644
+--- a/cmd/Kconfig
++++ b/cmd/Kconfig
+@@ -763,6 +763,12 @@ config CMD_GPIO
+ 	bool "gpio"
+ 	help
+ 	  GPIO support.
++
++config CMD_BLINK
++     bool "blink"
++     help
++	 GPIO support.
++
+ config CMD_LCD
+         bool "lcd"
+         help
+diff --git a/cmd/Makefile b/cmd/Makefile
+index 9c3659a3..a21dfb15 100644
+--- a/cmd/Makefile
++++ b/cmd/Makefile
+@@ -13,7 +13,7 @@ obj-y +=km_bootmenu.o
+ #---------------------
+ obj-y += help.o
+ obj-y += version.o
+-
++obj-y += blink.o
+ # command
+ obj-$(CONFIG_CMD_AES) += aes.o
+ obj-$(CONFIG_CMD_ADC) += adc.o
+@@ -71,6 +71,7 @@ obj-$(CONFIG_CMD_FS_GENERIC) += fs.o
+ obj-$(CONFIG_CMD_FUSE) += fuse.o
+ obj-$(CONFIG_CMD_GETTIME) += gettime.o
+ obj-$(CONFIG_CMD_GPIO) += gpio.o
++#obj-$(CONFIG_CMD_BLINK) += blink.o
+ obj-$(CONFIG_CMD_HVC) += smccc.o
+ obj-$(CONFIG_CMD_I2C) += i2c.o
+ obj-$(CONFIG_CMD_IOTRACE) += iotrace.o
+diff --git a/cmd/blink.c b/cmd/blink.c
+new file mode 100644
+index 00000000..c51a3c9b
+--- /dev/null
++++ b/cmd/blink.c
+@@ -0,0 +1,68 @@
++/*
++ * Control GPIO pins on the fly
++ *
++ * Copyright (c) 2008-2011 Analog Devices Inc.
++ *
++ * Licensed under the GPL-2 or later.
++ */
++
++#include <common.h>
++#include <command.h>
++#include <errno.h>
++#include <dm.h>
++#include <asm/gpio.h>
++#include<linux/delay.h>
++
++
++static int do_blink(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
++{
++	int value = 0, ret;
++	unsigned int gpio;
++	const char *str_cmd, *str_gpio = NULL;
++
++	if (argc > 0)
++	{
++		str_gpio = argv[1];
++		str_cmd = argv[0];
++	}
++
++	//strncmp(str_cmd, "status", 2);
++	
++	ret = gpio_lookup_name(str_gpio, NULL, NULL, &gpio);
++	if (ret) {
++		printf("GPIO: '%s' not found\n", str_gpio);
++		return cmd_process_error(cmdtp, ret);
++	}
++
++	/* turn the gpio name into a gpio number */
++	gpio = name_to_gpio(str_gpio);
++	if (gpio < 0)
++	{
++		printf("gpio: requesting pin %u failed\n", gpio);
++		return -1;
++	}
++
++	/* grab the pin before we tweak it */
++	ret = gpio_request(gpio, "cmd_gpio");
++	if (ret && ret != -EBUSY) {
++		printf("gpio: requesting pin %u failed\n", gpio);
++		return -1;
++	}
++
++	while(1)
++	{
++		value =!value;
++		gpio_direction_output(gpio, value);
++		mdelay(100);
++		if(ctrlc())
++			return value;
++	}
++	
++	return value;
++}
++
++U_BOOT_CMD(blink, 4, 0, do_blink,
++	   "query and control gpio pins",
++	   "<input|set|clear|toggle> <pin>\n"
++	   "    - input/set/clear/toggle the specified pin\n"
++	   "gpio status [-a] [<bank> | <pin>]  - show [all/claimed] GPIOs");
+-- 
+2.25.1
+
