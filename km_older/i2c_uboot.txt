@@ -1,0 +1,305 @@
+arshadi2c md 0x68 0x00 7
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:0
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:26
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:3
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:7
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:22
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 00 26 17 03 28 07 22    
+arshadi2c md 0x68 0x00 1
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 17    .
+arshadi2c md 0x68 0x00 1
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:19
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 19    .
+arshadi2c md 0x68 0x00 2
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:22
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:26
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 22 26    
+arshadi2c md 0x68 0x00 1
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:53
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 53    S
+arshadi2c md 0x68 0x00 0
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000:    
+arshadi2c md 0x68 0x00 1
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 28    (
+arshadi2c md 0x68 0x00 1
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:31
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 31    1
+arshadi2c md 0x68 0x00 1
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:40
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 40    @
+arshadi2c md 0x68 0x00 3
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:45
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:29
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 45 29 17    E).
+arshadi2c md 0x68 0x00 5
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:59
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:29
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:3
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 59 29 17 03 28    Y)..(
+arshadi2c mm 0x68 0x04  
+00000004:drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+ 28 ? q
+arshadi2c mm 0x68 0x03
+00000003:drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:3
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+ 03 ? 04
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+00000004:drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+ 28 ? q
+arshadi2c md 0x68 0x00 5
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:34
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:31
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:4
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 34 31 17 04 28    41..(
+arshadi2c md 0x68 0x00 7
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:53
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:31
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:4
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:7
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:22
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 53 31 17 04 28 07 22    S1..(."
+arshadqi2c mm 0x68 0x06 
+Unknown command 'qi2c' - try 'help'
+arshadi2c mm 0x68 0x06 
+00000006:drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:22
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+ 22 ? 24
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+00000007:drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:0
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+ 00 ? q
+arshadi2c md 0x68 0x00 7
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:58
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:32
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:17
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:4
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:28
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:7
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+buffer:24
+drivers/i2c/omap24xx_i2c.c:wait_for_event:258
+200
+0000: 58 32 17 04 28 07 24    X2..(.$
+arshad
+CTRL-A Z for help | 115200 8N1 | NOR | Minicom 2.7.1 | VT102 | Offline | tyUSB0

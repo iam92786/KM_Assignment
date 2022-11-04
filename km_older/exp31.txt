@@ -1,0 +1,29 @@
+/*
+	Booting Log 
+*/
+[   11.213702] omap_rtc 44e3e000.rtc: already running
+[   11.291994] omap_wdt: OMAP Watchdog Timer Rev 0x01: initial timeout 60 sec
+[   11.333131] cpu cpu0: Linked as a consumer to regulator.3
+[   11.377519] omap_rtc 44e3e000.rtc: registered as rtc0
+[   12.868932] drivers/rtc/rtc-ds1307.c:ds1307_probe:1402
+[   12.931498] omap-mailbox 480c8000.mailbox: omap mailbox rev 0x400
+[   13.053201] rtc-ds1307 1-0068: registered as rtc1
+[   13.058327] drivers/rtc/rtc-ds1307.c:ds1307_probe:1737
+
+
+/*
+	Case 1: DS1307 interface with BBB
+*/
+
+km@KM-BBB:~$ i2cdetect -y -r 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: 50 -- -- 53 -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --                         
+km@KM-BBB:~$ 
+
