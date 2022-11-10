@@ -1,4 +1,4 @@
-.//5. Write a program your own version of system() library? 
+//5. Write a program your own version of system() library? 
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
